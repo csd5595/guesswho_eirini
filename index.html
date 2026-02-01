@@ -19,81 +19,89 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #fff5f8;
+            /* Background Μπλε */
+            background-color: #1a1a2e; 
             font-family: 'Segoe UI', Tahoma, sans-serif;
             text-align: center;
             overflow: hidden;
             position: relative;
         }
 
-        /* Τα διακοσμητικά emojis στο φόντο */
+        /* Διακοσμητικά Emojis (Μωβ & Ροζ) */
         .bg-emoji {
             position: absolute;
-            font-size: 2rem;
-            z-index: 1; /* Πίσω από όλα */
-            opacity: 0.3;
+            font-size: 2.2rem;
+            z-index: 1;
+            opacity: 0.6; /* Πιο έντονα για να φαίνονται στο μπλε */
         }
 
         #content-container {
             position: relative;
-            z-index: 10; /* Το κουμπί και ο τίτλος να είναι πάντα μπροστά */
+            z-index: 10;
         }
 
         h1 {
-            color: #d63384;
+            color: #a29bfe; /* Απαλό Μωβ */
             font-size: 1.8rem;
             margin-bottom: 30px;
             padding: 0 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         #guess-btn {
             appearance: none;
             -webkit-appearance: none;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            /* Gradient από Μωβ σε Ροζ */
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
             color: white !important;
-            padding: 20px 50px;
-            font-size: 1.5rem;
+            padding: 22px 55px;
+            font-size: 1.6rem;
             font-weight: bold;
-            border: none;
+            border: 3px solid #fd79a8; /* Ροζ περίγραμμα */
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(255, 154, 158, 0.4);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.5);
             transition: all 0.3s ease;
             display: inline-block;
+            text-transform: uppercase;
         }
 
         #guess-btn:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 154, 158, 0.6);
+            transform: scale(1.08) rotate(-2deg);
+            background: linear-gradient(135deg, #a29bfe 0%, #fd79a8 100%);
+            box-shadow: 0 10px 30px rgba(253, 121, 168, 0.6);
         }
 
         #photo {
             display: none;
             margin: 20px auto;
             max-width: 280px;
-            border: 10px solid white;
+            /* Μωβ κορνίζα */
+            border: 8px solid #6c5ce7;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
             animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         @keyframes popIn {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+            0% { transform: scale(0) rotate(10deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-emoji" style="top: 10%; left: 10%;">🌸</div>
-    <div class="bg-emoji" style="top: 20%; right: 15%;">✨</div>
-    <div class="bg-emoji" style="bottom: 15%; left: 15%;">💖</div>
-    <div class="bg-emoji" style="bottom: 20%; right: 10%;">🎀</div>
+    <div class="bg-emoji" style="top: 10%; left: 10%;">💜</div>
+    <div class="bg-emoji" style="top: 20%; right: 15%;">🌸</div>
+    <div class="bg-emoji" style="bottom: 15%; left: 15%;">🔮</div>
+    <div class="bg-emoji" style="bottom: 20%; right: 10%;">🌷</div>
+    <div class="bg-emoji" style="top: 50%; left: 5%;">🎆</div>
+    <div class="bg-emoji" style="bottom: 40%; right: 5%;">💟</div>
 
     <div id="content-container">
         <h1 id="title">Μάντεψε ποια θα περάσει το μάθημα αύριο... ✨</h1>
         
-        <button id="guess-btn" onclick="revealAll()">Guess Who 🎀</button>
+        <button id="guess-btn" onclick="revealAll()">Guess Who 🔮</button>
 
         <img id="photo" src="katerina.jpg" alt="The Winner">
     </div>
@@ -111,14 +119,15 @@
 
             photo.style.display = 'block';
             btn.style.display = 'none';
-            title.innerHTML = "ΕΣΥ ΦΥΣΙΚΑ! 👑✨";
+            title.innerHTML = "ΕΣΥ ΦΥΣΙΚΑ! 👑💜";
+            title.style.color = "#fd79a8"; // Αλλαγή σε ροζ όταν κερδίζει
             
             sound.play();
 
-            // Έκρηξη Confetti
-            var duration = 3 * 1000;
+            // Confetti σε Μωβ και Μπλε αποχρώσεις
+            var duration = 4 * 1000;
             var animationEnd = Date.now() + duration;
-            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+            var defaults = { startVelocity: 35, spread: 360, ticks: 60, zIndex: 0 };
 
             function randomInRange(min, max) {
               return Math.random() * (max - min) + min;
@@ -131,9 +140,18 @@
                 return clearInterval(interval);
               }
 
-              var particleCount = 50 * (timeLeft / duration);
-              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+              var particleCount = 60 * (timeLeft / duration);
+              // Μωβ, Μπλε και Ροζ κομφετί
+              confetti(Object.assign({}, defaults, { 
+                particleCount, 
+                colors: ['#6c5ce7', '#a29bfe', '#fd79a8', '#81ecec'],
+                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } 
+              }));
+              confetti(Object.assign({}, defaults, { 
+                particleCount, 
+                colors: ['#6c5ce7', '#a29bfe', '#fd79a8', '#81ecec'],
+                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } 
+              }));
             }, 250);
         }
     </script>
