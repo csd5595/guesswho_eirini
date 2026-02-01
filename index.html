@@ -19,119 +19,103 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #1a1a2e; 
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+            /* Πιο έντονο Μπλε Φόντο */
+            background-color: #0a0a23; 
+            font-family: 'Arial', sans-serif;
             text-align: center;
             overflow: hidden;
             position: relative;
         }
 
-        /* Περισσότερα και πιο flirty emojis στο background */
+        /* Πάρα πολλά emojis στο background */
         .bg-emoji {
             position: absolute;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             z-index: 1;
-            opacity: 0.4;
-            animation: float 6s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
+            opacity: 0.3;
         }
 
         #content-container {
             position: relative;
             z-index: 10;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(5px);
-            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
         }
 
+        /* Άσπρος Τίτλος με καθαρή γραμματοσειρά */
         h1 {
-            color: #a29bfe;
-            font-size: 2rem;
-            margin-bottom: 30px;
-            text-shadow: 0 0 10px #6c5ce7;
-            letter-spacing: 1px;
+            color: #ffffff; 
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 40px;
+            text-transform: uppercase;
         }
 
-        /* Το κουμπί έγινε ΤΕΤΡΑΓΩΝΟ */
+        /* Τετράγωνο Μωβ Κουμπί */
         #guess-btn {
             appearance: none;
             -webkit-appearance: none;
-            background: linear-gradient(135deg, #6c5ce7 0%, #fd79a8 100%);
+            background-color: #6c5ce7; 
             color: white !important;
             padding: 25px 40px;
             font-size: 1.4rem;
             font-weight: 800;
-            border: 4px solid #ffffff;
-            /* Μικρό radius για να είναι τετράγωνο αλλά όχι κοφτερό */
-            border-radius: 12px; 
+            border: none;
+            border-radius: 8px; /* Σχεδόν τετράγωνο */
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
             text-transform: uppercase;
+            width: 100%;
         }
 
         #guess-btn:hover {
-            transform: scale(1.1) rotate(2deg);
-            box-shadow: 0 15px 30px rgba(253, 121, 168, 0.5);
-            background: linear-gradient(135deg, #fd79a8 0%, #6c5ce7 100%);
+            transform: scale(1.03);
+            background-color: #5b4bc4;
         }
 
+        /* Άσπρο κείμενο στη μέση χωρίς animation */
         .sub-text {
             color: #ffffff;
-            font-size: 1rem;
-            margin-top: 20px;
-            max-width: 320px;
+            font-size: 0.95rem;
+            margin-top: 25px;
             line-height: 1.5;
-            font-style: italic;
-            font-weight: 300;
-            animation: pulse 2s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.7; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.03); }
+            font-weight: 400;
+            padding: 0 10px;
         }
 
         #photo {
             display: none;
             margin: 20px auto;
             max-width: 280px;
-            border: 10px solid #ffffff;
+            /* Καθόλου άσπρο frame - μόνο στρογγυλεμένες γωνίες */
             border-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-            animation: heartBeat 0.8s ease-in-out;
-        }
-
-        @keyframes heartBeat {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-emoji" style="top: 5%; left: 10%;">💋</div>
-    <div class="bg-emoji" style="top: 15%; right: 20%;">✨</div>
-    <div class="bg-emoji" style="bottom: 10%; left: 15%;">💍</div>
-    <div class="bg-emoji" style="bottom: 25%; right: 10%;">💜</div>
-    <div class="bg-emoji" style="top: 40%; left: 5%;">🔥</div>
-    <div class="bg-emoji" style="top: 60%; right: 5%;">🍭</div>
-    <div class="bg-emoji" style="bottom: 5%; right: 50%;">⭐</div>
-    <div class="bg-emoji" style="top: 30%; left: 25%;">💎</div>
+    <div class="bg-emoji" style="top: 5%; left: 5%;">💜</div>
+    <div class="bg-emoji" style="top: 10%; right: 10%;">✨</div>
+    <div class="bg-emoji" style="top: 30%; left: 15%;">💋</div>
+    <div class="bg-emoji" style="top: 50%; right: 20%;">🔥</div>
+    <div class="bg-emoji" style="bottom: 10%; left: 10%;">💎</div>
+    <div class="bg-emoji" style="bottom: 20%; right: 5%;">💄</div>
+    <div class="bg-emoji" style="top: 70%; left: 25%;">💍</div>
+    <div class="bg-emoji" style="bottom: 5%; right: 40%;">🍭</div>
+    <div class="bg-emoji" style="top: 40%; right: 40%;">🍒</div>
+    <div class="bg-emoji" style="bottom: 40%; left: 5%;">💌</div>
+    <div class="bg-emoji" style="top: 15%; left: 45%;">🌙</div>
+    <div class="bg-emoji" style="bottom: 30%; right: 45%;">🌹</div>
 
     <div id="content-container">
-        <h1 id="title">Ποια θα περάσει το μάθημα αύριο... 🔥</h1>
+        <h1 id="title">Ποιος θα περάσει το μάθημα αύριο...</h1>
         
-        <button id="guess-btn" onclick="revealAll()">tap to guess 🫦</button>
+        <button id="guess-btn" onclick="revealAll()">tap to guess </button>
 
         <p id="extra-text" class="sub-text">
-            Βασισμένο στο πόση ώρα αφιερώνεις στο διάβασμα... και στο πόσο μου λείπεις (pls τελειωνε να βγούμε!) 🥺💋
+            Βασισμένο στο πόση ώρα αφιερώνεις στο διάβασμα... και στο πόσο μου λείπεις (pls τελειωνε να βγούμε!)
         </p>
         <img id="photo" src="katerina.jpg" alt="The Winner">
     </div>
@@ -152,34 +136,24 @@
             btn.style.display = 'none';
             extraText.style.display = 'none';
             
-            title.innerHTML = "ΕΣΥ ΦΥΣΙΚΑ! 👑💜";
-            title.style.color = "#fd79a8"; 
+            title.innerHTML = "ΕΣΥ ΦΥΣΙΚΑ! 😎";
+            title.style.color = "#ffffff"; 
             
             sound.play();
 
-            var duration = 5 * 1000;
+            var duration = 4 * 1000;
             var animationEnd = Date.now() + duration;
-            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
-            function randomInRange(min, max) {
-              return Math.random() * (max - min) + min;
-            }
 
             var interval = setInterval(function() {
               var timeLeft = animationEnd - Date.now();
               if (timeLeft <= 0) return clearInterval(interval);
 
-              var particleCount = 70 * (timeLeft / duration);
-              confetti(Object.assign({}, defaults, { 
-                particleCount, 
-                colors: ['#6c5ce7', '#fd79a8', '#ffffff'],
-                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } 
-              }));
-              confetti(Object.assign({}, defaults, { 
-                particleCount, 
-                colors: ['#6c5ce7', '#fd79a8', '#ffffff'],
-                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } 
-              }));
+              confetti({ 
+                particleCount: 40, 
+                spread: 70,
+                colors: ['#6c5ce7', '#ffffff', '#fd79a8'],
+                origin: { y: 0.6 } 
+              });
             }, 250);
         }
     </script>
