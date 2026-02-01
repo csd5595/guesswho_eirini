@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guess Who?</title>
+    
+    <meta property="og:title" content="Έχεις ένα μήνυμα!">
+    <meta property="og:description" content="Πάτα για να δεις ποιος θα περάσει το μάθημα!">
+    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/5726/5726775.png">
+    <meta property="og:type" content="website">
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body {
@@ -26,11 +32,10 @@
             padding: 0 20px;
         }
 
-#guess-btn {
+        #guess-btn {
             appearance: none;
-            -webkit-appearance: none; /* Για Safari/Chrome σε Mac/iOS */
-            background: #6c5ce7 !important; /* Σταθερό μωβ */
-            background-color: #6c5ce7 !important;
+            -webkit-appearance: none;
+            background: #6c5ce7 !important;
             color: #ffffff !important;
             padding: 20px 50px;
             font-size: 1.6rem;
@@ -41,7 +46,6 @@
             box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
             transition: all 0.2s ease;
             text-transform: uppercase;
-            display: inline-block;
             outline: none;
         }
 
@@ -86,19 +90,12 @@
             const sound = document.getElementById('tada-sound');
             const title = document.getElementById('title');
 
-            // 1. Εμφάνιση Φωτογραφίας
             photo.style.display = 'block';
-            
-            // 2. Εξαφάνιση Κουμπιού
             btn.style.display = 'none';
-
-            // 3. Αλλαγή Τίτλου
             title.innerText = "ΕΣΥ ΦΥΣΙΚΑ! 😎";
-
-            // 4. Αναπαραγωγή Ήχου
+            
             sound.play();
 
-            // 5. Confetti εφέ
             confetti({
                 particleCount: 150,
                 spread: 70,
@@ -106,6 +103,5 @@
             });
         }
     </script>
-
 </body>
 </html>
