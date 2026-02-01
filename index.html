@@ -65,37 +65,44 @@
             width: 100%;
         }
 
-        #guess-btn:hover {
-            transform: scale(1.03);
-            background-color: #5b4bc4;
-        }
-
         .sub-text {
             color: #ffffff;
             font-size: 0.95rem;
             margin-top: 25px;
             line-height: 1.5;
-            font-weight: 400;
             padding: 0 10px;
         }
 
-        #photo {
-            display: none;
+        /* Container για τη φωτό και το κείμενο πάνω της */
+        #photo-wrapper {
+            position: relative;
+            display: none; /* Θα γίνει block με το κλικ */
             margin: 20px auto;
             max-width: 280px;
+        }
+
+        #photo {
+            width: 100%;
             border-radius: 15px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.5);
         }
 
-        /* Το στυλ για τα motivational quotes */
-        #quote-container {
-            color: #fd79a8;
-            font-size: 1.5rem;
-            font-weight: bold;
-            height: 40px;
-            margin-top: 20px;
+        /* Οι φράσεις πάνω στην εικόνα */
+        #quote-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            color: rgba(200, 200, 200, 0.8); /* Γκρι διάφανο */
+            font-size: 1.6rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            pointer-events: none;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.3s ease;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            z-index: 20;
         }
     </style>
 </head>
@@ -107,8 +114,6 @@
     <div class="bg-emoji" style="top: 50%; right: 20%;">🔥</div>
     <div class="bg-emoji" style="bottom: 10%; left: 10%;">💎</div>
     <div class="bg-emoji" style="bottom: 20%; right: 5%;">💄</div>
-    <div class="bg-emoji" style="top: 70%; left: 25%;">💍</div>
-    <div class="bg-emoji" style="bottom: 5%; right: 40%;">🍭</div>
 
     <div id="content-container">
         <h1 id="title">Ποιος θα περάσει το μάθημα αύριο...</h1>
@@ -119,9 +124,10 @@
             Βασισμένο στο πόση ώρα αφιερώνεις στο διάβασμα... και στο πόσο μου λείπεις (pls τελειωνε να βγούμε!)
         </p>
 
-        <img id="photo" src="katerina.jpg" alt="The Winner">
-        
-        <div id="quote-container"></div>
+        <div id="photo-wrapper">
+            <img id="photo" src="katerina.jpg" alt="The Winner">
+            <div id="quote-overlay"></div>
+        </div>
     </div>
 
     <audio id="chosen-song">
@@ -130,35 +136,37 @@
 
     <script>
         const quotes = [
-            "Το έχεις! 💪",
-            "Never back down, never what? 🗣️",
-            "Εύκολο το 10! 💯",
-            "Μην σταματάς! 🔥"
+            "Το έχεις 💪🏿",
+            "Never back down, never what ??? 💁🏾 ",
+            "Εύκολο το 10 🤑",
+            "Δεν παιζει αχγος 👊🏿",
+            "ΑΝΤΕ ΤΕΛΕΙΩΝΕ ΠΙΑ"
         ];
 
         function showQuotes(index) {
-            const container = document.getElementById('quote-container');
+            const overlay = document.getElementById('quote-overlay');
             if (index < quotes.length) {
-                container.innerText = quotes[index];
-                container.style.opacity = 1;
+                overlay.innerText = quotes[index];
+                overlay.style.opacity = 1;
                 
+                // Μένει για 1.2 δευτερόλεπτα (γρήγορο αλλά διαβάζεται)
                 setTimeout(() => {
-                    container.style.opacity = 0;
+                    overlay.style.opacity = 0;
                     setTimeout(() => {
                         showQuotes(index + 1);
-                    }, 500); // Χρόνος μέχρι να εμφανιστεί η επόμενη
-                }, 2000); // Πόση ώρα μένει η κάθε φράση
+                    }, 300); // Μικρό κενό ανάμεσα στις φράσεις
+                }, 1200);
             }
         }
 
         function revealAll() {
-            const photo = document.getElementById('photo');
+            const wrapper = document.getElementById('photo-wrapper');
             const btn = document.getElementById('guess-btn');
             const extraText = document.getElementById('extra-text');
             const song = document.getElementById('chosen-song');
             const title = document.getElementById('title');
 
-            photo.style.display = 'block';
+            wrapper.style.display = 'block';
             btn.style.display = 'none';
             extraText.style.display = 'none';
             
@@ -166,7 +174,7 @@
             title.style.color = "#ffffff"; 
             
             song.play();
-            showQuotes(0); // Ξεκινάει η προβολή των φράσεων
+            showQuotes(0);
 
             var duration = 4 * 1000;
             var animationEnd = Date.now() + duration;
