@@ -26,9 +26,12 @@
             padding: 0 20px;
         }
 
-        #guess-btn {
-            background-color: #6c5ce7 !important; 
-            color: white !important;
+#guess-btn {
+            appearance: none;
+            -webkit-appearance: none; /* Για Safari/Chrome σε Mac/iOS */
+            background: #6c5ce7 !important; /* Σταθερό μωβ */
+            background-color: #6c5ce7 !important;
+            color: #ffffff !important;
             padding: 20px 50px;
             font-size: 1.6rem;
             font-weight: bold;
@@ -36,13 +39,16 @@
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
-            transition: transform 0.2s, background-color 0.2s;
+            transition: all 0.2s ease;
             text-transform: uppercase;
+            display: inline-block;
+            outline: none;
         }
 
         #guess-btn:hover {
+            background: #a29bfe !important;
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.6);
         }
 
         #photo {
