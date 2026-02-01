@@ -120,8 +120,8 @@
         <img id="photo" src="katerina.jpg" alt="The Winner">
     </div>
 
-    <audio id="magic-sound">
-        <source src="https://www.soundjay.com/magic/magic-chime-01.mp3" type="audio/mpeg">
+    <audio id="chosen-song">
+        <source src="song.mp3" type="audio/mpeg">
     </audio>
 
     <script>
@@ -129,7 +129,7 @@
             const photo = document.getElementById('photo');
             const btn = document.getElementById('guess-btn');
             const extraText = document.getElementById('extra-text');
-            const sound = document.getElementById('magic-sound');
+            const song = document.getElementById('chosen-song');
             const title = document.getElementById('title');
 
             photo.style.display = 'block';
@@ -139,7 +139,8 @@
             title.innerHTML = "ΕΣΥ ΦΥΣΙΚΑ! 😎";
             title.style.color = "#ffffff"; 
             
-            sound.play();
+            // Παίζει το τραγούδι σου
+            song.play();
 
             var duration = 4 * 1000;
             var animationEnd = Date.now() + duration;
