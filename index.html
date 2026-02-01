@@ -19,7 +19,6 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            /* Πιο έντονο Μπλε Φόντο */
             background-color: #0a0a23; 
             font-family: 'Arial', sans-serif;
             text-align: center;
@@ -27,7 +26,6 @@
             position: relative;
         }
 
-        /* Πάρα πολλά emojis στο background */
         .bg-emoji {
             position: absolute;
             font-size: 1.5rem;
@@ -42,7 +40,6 @@
             max-width: 400px;
         }
 
-        /* Άσπρος Τίτλος με καθαρή γραμματοσειρά */
         h1 {
             color: #ffffff; 
             font-size: 1.8rem;
@@ -51,7 +48,6 @@
             text-transform: uppercase;
         }
 
-        /* Τετράγωνο Μωβ Κουμπί */
         #guess-btn {
             appearance: none;
             -webkit-appearance: none;
@@ -61,7 +57,7 @@
             font-size: 1.4rem;
             font-weight: 800;
             border: none;
-            border-radius: 8px; /* Σχεδόν τετράγωνο */
+            border-radius: 8px;
             cursor: pointer;
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             transition: transform 0.2s;
@@ -74,7 +70,6 @@
             background-color: #5b4bc4;
         }
 
-        /* Άσπρο κείμενο στη μέση χωρίς animation */
         .sub-text {
             color: #ffffff;
             font-size: 0.95rem;
@@ -88,9 +83,19 @@
             display: none;
             margin: 20px auto;
             max-width: 280px;
-            /* Καθόλου άσπρο frame - μόνο στρογγυλεμένες γωνίες */
             border-radius: 15px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+
+        /* Το στυλ για τα motivational quotes */
+        #quote-container {
+            color: #fd79a8;
+            font-size: 1.5rem;
+            font-weight: bold;
+            height: 40px;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
     </style>
 </head>
@@ -104,20 +109,19 @@
     <div class="bg-emoji" style="bottom: 20%; right: 5%;">💄</div>
     <div class="bg-emoji" style="top: 70%; left: 25%;">💍</div>
     <div class="bg-emoji" style="bottom: 5%; right: 40%;">🍭</div>
-    <div class="bg-emoji" style="top: 40%; right: 40%;">🍒</div>
-    <div class="bg-emoji" style="bottom: 40%; left: 5%;">💌</div>
-    <div class="bg-emoji" style="top: 15%; left: 45%;">🌙</div>
-    <div class="bg-emoji" style="bottom: 30%; right: 45%;">🌹</div>
 
     <div id="content-container">
         <h1 id="title">Ποιος θα περάσει το μάθημα αύριο...</h1>
         
-        <button id="guess-btn" onclick="revealAll()">tap to guess </button>
+        <button id="guess-btn" onclick="revealAll()">tap to guess</button>
 
         <p id="extra-text" class="sub-text">
             Βασισμένο στο πόση ώρα αφιερώνεις στο διάβασμα... και στο πόσο μου λείπεις (pls τελειωνε να βγούμε!)
         </p>
+
         <img id="photo" src="katerina.jpg" alt="The Winner">
+        
+        <div id="quote-container"></div>
     </div>
 
     <audio id="chosen-song">
@@ -125,6 +129,28 @@
     </audio>
 
     <script>
+        const quotes = [
+            "Το έχεις! 💪",
+            "Never back down, never what? 🗣️",
+            "Εύκολο το 10! 💯",
+            "Μην σταματάς! 🔥"
+        ];
+
+        function showQuotes(index) {
+            const container = document.getElementById('quote-container');
+            if (index < quotes.length) {
+                container.innerText = quotes[index];
+                container.style.opacity = 1;
+                
+                setTimeout(() => {
+                    container.style.opacity = 0;
+                    setTimeout(() => {
+                        showQuotes(index + 1);
+                    }, 500); // Χρόνος μέχρι να εμφανιστεί η επόμενη
+                }, 2000); // Πόση ώρα μένει η κάθε φράση
+            }
+        }
+
         function revealAll() {
             const photo = document.getElementById('photo');
             const btn = document.getElementById('guess-btn');
@@ -139,8 +165,8 @@
             title.innerHTML = "ΕΣΥ ΦΥΣΙΚΑ! 😎";
             title.style.color = "#ffffff"; 
             
-            // Παίζει το τραγούδι σου
             song.play();
+            showQuotes(0); // Ξεκινάει η προβολή των φράσεων
 
             var duration = 4 * 1000;
             var animationEnd = Date.now() + duration;
