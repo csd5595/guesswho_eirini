@@ -19,10 +19,24 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #fff5f8; /* Πολύ απαλό ροζ */
-            font-family: 'Segoe UI', 'Comic Sans MS', cursive, sans-serif;
+            background-color: #fff5f8;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             text-align: center;
             overflow: hidden;
+            position: relative;
+        }
+
+        /* Τα διακοσμητικά emojis στο φόντο */
+        .bg-emoji {
+            position: absolute;
+            font-size: 2rem;
+            z-index: 1; /* Πίσω από όλα */
+            opacity: 0.3;
+        }
+
+        #content-container {
+            position: relative;
+            z-index: 10; /* Το κουμπί και ο τίτλος να είναι πάντα μπροστά */
         }
 
         h1 {
@@ -30,14 +44,13 @@
             font-size: 1.8rem;
             margin-bottom: 30px;
             padding: 0 20px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
 
         #guess-btn {
             appearance: none;
             -webkit-appearance: none;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-            color: white;
+            color: white !important;
             padding: 20px 50px;
             font-size: 1.5rem;
             font-weight: bold;
@@ -46,7 +59,7 @@
             cursor: pointer;
             box-shadow: 0 8px 20px rgba(255, 154, 158, 0.4);
             transition: all 0.3s ease;
-            outline: none;
+            display: inline-block;
         }
 
         #guess-btn:hover {
@@ -56,35 +69,73 @@
 
         #photo {
             display: none;
-            margin-top: 20px;
-            max-width: 80%;
-            max-height: 400px;
-            border: 8px solid white;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(214, 51, 132, 0.2);
+            margin: 20px auto;
+            max-width: 280px;
+            border: 10px solid white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
             animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         @keyframes popIn {
-            0% { transform: scale(0) rotate(-10deg); opacity: 0; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
-
-        .decoration {
-            position: absolute;
-            font-size: 2rem;
-            opacity: 0.2;
-            z-index: -1;
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <div class="decoration" style="top: 10%; left: 10%;">🌸</div>
-    <div class="decoration" style="bottom: 15%; right: 15%;">✨</div>
-    <div class="decoration" style="top: 20%; right: 10%;">💖</div>
-    <div class="decoration" style="bottom: 10%; left: 20%;">🎀</div>
+    <div class="bg-emoji" style="top: 10%; left: 10%;">🌸</div>
+    <div class="bg-emoji" style="top: 20%; right: 15%;">✨</div>
+    <div class="bg-emoji" style="bottom: 15%; left: 15%;">💖</div>
+    <div class="bg-emoji" style="bottom: 20%; right: 10%;">🎀</div>
 
-    <h1 id="title">Μάντεψε ποια θα περάσει το μάθημα αύριο... ✨</h1>
-    
-    <button id="guess-btn
+    <div id="content-container">
+        <h1 id="title">Μάντεψε ποια θα περάσει το μάθημα αύριο... ✨</h1>
+        
+        <button id="guess-btn" onclick="revealAll()">Guess Who 🎀</button>
+
+        <img id="photo" src="katerina.jpg" alt="The Winner">
+    </div>
+
+    <audio id="magic-sound">
+        <source src="https://www.soundjay.com/magic/magic-chime-01.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function revealAll() {
+            const photo = document.getElementById('photo');
+            const btn = document.getElementById('guess-btn');
+            const sound = document.getElementById('magic-sound');
+            const title = document.getElementById('title');
+
+            photo.style.display = 'block';
+            btn.style.display = 'none';
+            title.innerHTML = "ΕΣΥ ΦΥΣΙΚΑ! 👑✨";
+            
+            sound.play();
+
+            // Έκρηξη Confetti
+            var duration = 3 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInRange(min, max) {
+              return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+              var timeLeft = animationEnd - Date.now();
+
+              if (timeLeft <= 0) {
+                return clearInterval(interval);
+              }
+
+              var particleCount = 50 * (timeLeft / duration);
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+    </script>
+</body>
+</html>
